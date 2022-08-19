@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.audio_overlay"
-        minSdk 21
+        minSdk 24
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -52,4 +52,5 @@ dependencies {
     implementation 'com.github.Innova133:MediaPicker:2.4.4'
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.googlecode.mp4parser:isoparser:1.1.9'
+    implementation 'com.arthenica:mobile-ffmpeg-full:4.4'
 }

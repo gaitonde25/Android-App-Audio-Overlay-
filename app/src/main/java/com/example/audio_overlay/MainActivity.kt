@@ -19,9 +19,10 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.arthenica.mobileffmpeg.FFmpeg
+import com.arthenica.mobileffmpeg.FFmpegExecution
 import com.example.audio_overlay.databinding.ActivityMainBinding
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.*
@@ -276,5 +277,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     // merge audio and video
-
+    var path = Environment.getExternalStorageDirectory().absolutePath + "/Download"
+    var finalVideoPath = "$path/output.mp4"
+    fun Merge(view: View?) {
+        val c = arrayOf("-i",videoFilePath, "-i",audioFilePath, "-c:v", "copy", "-c:a", "aac", "-map", "0:v:0", "-map", "1:a:0", "-shortest", (finalVideoPath))
+        MergeVideo(c)
+    }
+    private fun MergeVideo(co: Array<String?>) {
+        FFmpeg.executeAsync(co) { executionId, returnCode ->
+            Log.d("hello", "return  $returnCode")
+            Log.d("hello", "executionID  $executionId")
+            Log.d("hello", "FFMPEG  " + FFmpegExecution(executionId, co))
+        }
+    }
 }
